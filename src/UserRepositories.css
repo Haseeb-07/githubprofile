@@ -1,0 +1,53 @@
+body {
+    font-family: 'Raleway', sans-serif; /* Set the font family for the entire page */
+  }
+.container {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* This ensures that the container takes at least the full viewport height. */
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center; /* Center-align the text within li items */
+  }
+  
+  li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px auto; /* Center the li items horizontally */
+    max-width: 900px;
+    background-color: #dff5f6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+  }
+  
+  li:hover {
+    background-color: #b5dbf8;
+  }
+  
+  strong {
+    font-size: 18px;
+    color: #007BFF;
+  }
+  
+  .description {
+    color: #555;
+  }
+  
+  .star-count {
+    color: #ff9f00;
+  }
+  

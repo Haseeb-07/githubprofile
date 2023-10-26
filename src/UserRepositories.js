@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './UserRepositories.css'; // Import the CSS file
 
 function UserRepositories() {
   const { username } = useParams();
@@ -28,20 +29,20 @@ function UserRepositories() {
   }, [username]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="container">Loading Repositorief for {username}...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="container error">Error: {error}</div>;
   }
 
-  if (!Array.isArray(repositories)) {
-    return <div>No repositories found for this user.</div>;
+  if (!Array.isArray(repositories) || repositories.length === 0) {
+    return <div className="container">No repositories found for this user.</div>;
   }
 
   return (
-    <div>
-      <h2>Repositories for {username}</h2>
+    <div className="container">
+      <h2>Repositories for: {username}</h2>
       <ul>
         {repositories.map((repo) => (
           <li key={repo.id}>

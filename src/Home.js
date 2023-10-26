@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Home.css'; // Import the CSS file
 
 function Home() {
   const [username, setUsername] = useState('');
@@ -20,7 +21,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>GitHub Repository Browser</h1>
       <input
         type="text"
@@ -29,7 +30,7 @@ function Home() {
         onChange={handleUsernameChange}
       />
       <button onClick={handleSearch}>Search</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

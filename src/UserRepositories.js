@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './UserRepositories.css'; // Import the CSS file
+import './UserRepositories.css'; 
 
 function UserRepositories() {
   const { username } = useParams();
@@ -9,7 +9,7 @@ function UserRepositories() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch data from the GitHub API using the username
+    
     fetch(`https://api.github.com/users/${username}/repos`)
       .then((response) => {
         if (response.status === 200) {
@@ -29,7 +29,7 @@ function UserRepositories() {
   }, [username]);
 
   if (loading) {
-    return <div className="container">Loading Repositorief for {username}...</div>;
+    return <div className="container">Loading Repositories for {username}...</div>;
   }
 
   if (error) {

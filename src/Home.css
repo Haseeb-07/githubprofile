@@ -2,10 +2,11 @@
 .container {
     text-align: center;
     padding: 20px;
+    min-height: 80vh;
   }
   
   h1 {
-    font-size: 28px;
+    font-size: 38px;
     margin-bottom: 20px;
     color: #333;
   }

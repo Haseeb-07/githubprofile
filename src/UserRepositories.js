@@ -7,26 +7,56 @@ function UserRepositories() {
   const [repositories, setRepositories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    
-    fetch(`https://api.github.com/users/${username}/repos`)
-      .then((response) => {
+    const fetchRepositories = async () => {
+      try {
+        const response = await fetch(`https://api.github.com/users/${username}/repos?page=${currentPage}&per_page=5`);
+        
         if (response.status === 200) {
-          return response.json();
+          const data = await response.json();
+          setRepositories(data);
+          
+          const linkHeader = response.headers.get('Link');
+          if (linkHeader) {
+            
+            const hasNextPage = linkHeader.includes('rel="next"');
+            if (hasNextPage) {
+              setTotalPages(currentPage + 1);
+            } else {
+              setTotalPages(currentPage);
+            }
+          } else {
+           
+            setTotalPages(1);
+          }
         } else {
           throw new Error('User not found');
         }
-      })
-      .then((data) => {
-        setRepositories(data);
+
         setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         setError(err.message);
         setLoading(false);
-      });
-  }, [username]);
+      }
+    };
+
+    fetchRepositories();
+  }, [username, currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   if (loading) {
     return <div className="container">Loading Repositories for {username}...</div>;
@@ -37,7 +67,11 @@ function UserRepositories() {
   }
 
   if (!Array.isArray(repositories) || repositories.length === 0) {
-    return <div className="container">No repositories found for this user.</div>;
+    return (
+      <div className="container">
+        No repositories found for this user.
+      </div>
+    );
   }
 
   return (
@@ -50,6 +84,16 @@ function UserRepositories() {
           </li>
         ))}
       </ul>
+      <div>
+  <button onClick={handlePrevPage} disabled={currentPage === 1}>
+    &lt; 
+  </button>
+  <span> Page {currentPage} of {totalPages} </span>
+  <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+     &gt;
+  </button>
+</div>
+
     </div>
   );
 }

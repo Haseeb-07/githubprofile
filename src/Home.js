@@ -23,6 +23,7 @@ function Home() {
   return (
     <div className="container">
       <h1>GitHub Repository Browser</h1>
+      <p>Enter Github account name to check associated repositories</p>
       <input
         type="text"
         placeholder="Enter a GitHub username"
